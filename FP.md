@@ -10,4 +10,4 @@
 ### High Memory - Performance, Responsibility, Concurrency
 
 
-# Need for remove of 'side effects'. So, refoucs to importance of F.P
+## Need for remove of 'side effects'. So, refoucs to importance of F.P
