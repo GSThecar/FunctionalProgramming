@@ -53,3 +53,53 @@ return nums.reduce(0, +)
 </code></pre>
 
 ### My learning : Side Effect, reduce's using
+
+# Higher-Order Functions
+
+## Function that inputed or return function
+
+### Example is supplyed in swift's Foundation Library
+
+<pre><code>
+
+let arr = [1, 2, 3, 4, 5]
+func isEven(_ i: Int) -> Bool {
+return i % 2 == 0
+}
+let evens = arr.filter(isEven) //[2, 4]
+
+</code></pre>
+
+### Let's Practice
+
+<pre><code>
+
+//my code
+
+let f: (Int) -> Bool = { 
+(number: Int) -> Bool in
+return number % 2 == 0
+} //함수 내부를 구현하세요
+
+let s: (Int, Int) -> Int = { 
+(number: Int, otherNumber: Int) -> Int in
+var sum = 0
+sum = number + otherNumber
+return sum
+}//함수 내부를 구현하세요
+
+func solution(_ nums: [Int]) -> Int {
+return nums.filter(f).reduce(0, s)
+}
+
+//other person
+let f: (Int) -> Bool = { $0 % 2 == 0 } //함수 내부를 구현하세요
+let s: (Int, Int) -> Int = { $0 + $1 } //함수 내부를 구현하세요
+
+func solution(_ nums: [Int]) -> Int {
+return nums.filter(f).reduce(0, s)
+}
+
+</code></pre>
+
+### My learning: Syntax optimization's remind and need more try
