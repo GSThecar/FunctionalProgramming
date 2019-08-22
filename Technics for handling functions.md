@@ -103,3 +103,113 @@ return nums.filter(f).reduce(0, s)
 </code></pre>
 
 ### My learning: Syntax optimization's remind and need more try
+
+
+# Composition
+
+## Some function's return value used other function's input value
+
+### Sure, some function's return type must equal to other function's input type
+
+<pre><code>
+//Example Code
+
+func f1(_ i: Int) -> Int {
+return i * 2
+}
+
+func f2(_ i: Int) -> String {
+return "\(i)"
+}
+
+let result = f2(f1(100))
+
+func ff(_ pf1: @escaping (Int) -> Int, _ pf2: @escaping (Int) -> String) -> (Int) -> String {
+return { i in
+return pf2(pf1(i))
+}
+}
+let f3 = ff(f1, f2)
+let result = f3(100)
+
+//use generic
+func comp<A, B, C>(_ pf1: @escaping (A) -> B, _ pf2: @escaping (B) -> C) -> (A) -> C {
+return { i in
+return pf2(pf1(i))
+}
+}
+let f3 = comp(f1, f2)
+
+</code></pre>
+
+### Let's practice
+
+<pre><code>
+//my code
+func comp<A, B, C>(_ pf1: @escaping (A) -> B,
+_ pf2: @escaping (B) -> C) -> (A) -> C {
+return { i in
+return pf2(pf1(i))
+}
+}
+
+func filterEven(_ ns: [Int]) -> [Int] {
+var temporaryBox: [Int] = []
+for number in ns {
+guard number % 2 == 0 else { continue }
+temporaryBox.append(number)
+}
+
+return temporaryBox
+//함수를 구현하세요
+}
+
+func sum(_ ns: [Int]) -> Int {
+//함수를 구현하세요
+var result = 0
+for number in ns {
+result += number
+}
+return result
+}
+
+let filteredSum = comp(filterEven, sum)
+
+func solution(_ nums: [Int]) -> Int {
+return filteredSum(nums)
+}
+
+//other person
+func comp<A, B, C>(_ pf1: @escaping (A) -> B,
+_ pf2: @escaping (B) -> C) -> (A) -> C {
+return { i in
+return pf2(pf1(i))
+}
+}
+
+func judgeEven(_ num:Int) -> Bool {
+return num % 2 == 0
+}
+
+func filterEven(_ ns: [Int]) -> [Int] {
+//함수를 구현하세요
+return ns.filter{judgeEven($0)}
+}
+
+func add(_ a:Int, _ b:Int) -> Int {
+return a + b
+}
+
+func sum(_ ns: [Int]) -> Int {
+//함수를 구현하세요
+return ns.reduce(0, {add($0,$1)})
+}
+
+let filteredSum = comp(filterEven, sum)
+
+func solution(_ nums: [Int]) -> Int {
+return filteredSum(nums)
+}
+</code></pre>
+
+### my learning: I have to develop my sight
