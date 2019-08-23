@@ -213,3 +213,80 @@ return filteredSum(nums)
 </code></pre>
 
 ### my learning: I have to develop my sight
+
+# Curring
+
+## Separate function that inputed 2 more parameters
+
+### Purpose :  To easy composition
+
+<code><pre>
+
+func f(_ a: Int, _ b: Int) -> Int {
+return a * b
+}
+
+func f1(_ a: Int) -> Int {
+return a
+}
+func f2(_ b: Int) -> Int {
+return b
+}
+
+func multiply(_ a: Int) -> (Int) -> Int {
+return { b in 
+return a * b
+}
+}
+let area = multiply(10)(20)
+
+</pre></code>
+
+### Let's practice
+
+<pre><code>
+
+//my code
+func filterSum(_ ns: [Int], _ n: Int) -> Int {
+return ns.filter({ $0 % n == 0 }).reduce(0, +)
+}
+
+func filterSum2(_ n: Int) -> ([Int]) -> Int {
+var box: Int = 0
+return {
+(ns: [Int]) -> Int in
+for number in ns {
+guard number % n == 0 else { continue }
+box += number
+}
+return box
+}
+
+}
+
+func solution(_ nums: [Int], _ r: Int) -> Int {
+let filteredR = filterSum2(r)
+return filteredR(nums)
+}
+
+//other person
+func filterSum(_ ns: [Int], _ n: Int) -> Int {
+return ns.filter { $0 % n == 0 }.reduce(0, +)
+}
+
+func filterSum2(_ n: Int) -> ([Int]) -> Int {
+return {
+return filterSum($0, n)
+}
+}
+
+func solution(_ nums: [Int], _ r: Int) -> Int {
+let filteredR = filterSum2(r)
+return filteredR(nums)
+}
+
+
+</code></pre>
+
+
+### My fault: I did kill FP's strong point. So code is complexed
