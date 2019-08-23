@@ -226,12 +226,9 @@ func f(_ a: Int, _ b: Int) -> Int {
 return a * b
 }
 
-func f1(_ a: Int) -> Int {
-return a
-}
-func f2(_ b: Int) -> Int {
-return b
-}
+//func f1(_ a: Int) -> Int
+//func f2(_ b: Int) -> Int 
+
 
 func multiply(_ a: Int) -> (Int) -> Int {
 return { b in 
